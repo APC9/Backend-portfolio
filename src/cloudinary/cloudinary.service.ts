@@ -26,8 +26,23 @@ export class CloudinaryService {
     return result.secure_url;
   }
 
+  async uploadImagePublication( file: Express.Multer.File ){
+    const result = await cloudinary.uploader.upload( file.path, {
+      public_id: `publicaciones/${uuid()}`
+    })
+
+    return result.secure_url;
+  }
+
   async getImage(id:string){
     const url = cloudinary.url( `portafolio/${id}`)
+    const existImage = await this.checkCloudinaryId(url);
+
+    return existImage ? url: 'https://res.cloudinary.com/dybfsyxq9/image/upload/v1686847866/no-image_zio7qg.jpg';
+  }
+
+  async getImagePublication(id:string){
+    const url = cloudinary.url( `publicaciones/${id}`)
     const existImage = await this.checkCloudinaryId(url);
 
     return existImage ? url: 'https://res.cloudinary.com/dybfsyxq9/image/upload/v1686847866/no-image_zio7qg.jpg';

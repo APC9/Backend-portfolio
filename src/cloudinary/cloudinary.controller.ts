@@ -4,7 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthGuard } from '../guards/auth.guard';
 
-@UseGuards( AuthGuard )
+/* @UseGuards( AuthGuard ) */
 @Controller('cloudinary')
 export class CloudinaryController {
 
@@ -22,10 +22,30 @@ export class CloudinaryController {
     return url;
   }
 
+  @Post('publication')
+  @UseInterceptors( FileInterceptor("image"))
+  async uploadImagePublication( @UploadedFile() file: Express.Multer.File): Promise<string> {
+
+    if (!file) {
+      throw new BadRequestException('Make sure that the file is an image')
+    }
+
+    const url = await this.cloudinaryService.uploadImagePublication(file)
+    return url;
+  }
+
 
   @Get(':id')
   async getImage(@Param('id') id: string, @Res() res: Response) {
     const url = await this.cloudinaryService.getImage(id);
+    res.status(200).json({
+      url
+    });
+  }
+  
+  @Get('publication/:id')
+  async getImagePublication(@Param('id') id: string, @Res() res: Response) {
+    const url = await this.cloudinaryService.getImagePublication(id);
     res.status(200).json({
       url
     });
