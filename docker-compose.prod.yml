@@ -12,6 +12,7 @@ services:
       - .:/app/
       - /app/node_modules
 
+    image: apc91/portafolio-backend
     container_name: backend-portafolio
 
     ports:

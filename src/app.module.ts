@@ -21,7 +21,13 @@ import { AuthModule } from './auth/auth.module';
       load: [envConfiguration],
     }),
     //configuracion de Mongoose
-    MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      dbName: process.env.DB_NAME,
+      //auth: {
+      //username: process.env.DATABASE_USER,
+      //  password: process.env.DATABASE_PASS
+      //}
+    }),
     ProjectsModule,
     CloudinaryModule,
     EmailModule,

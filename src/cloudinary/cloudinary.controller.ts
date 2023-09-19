@@ -4,7 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthGuard } from '../guards/auth.guard';
 
-/* @UseGuards( AuthGuard ) */
+@UseGuards( AuthGuard ) 
 @Controller('cloudinary')
 export class CloudinaryController {
 
