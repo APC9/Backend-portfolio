@@ -46,7 +46,6 @@ export class ProjectsService {
         throw new BadRequestException( `Project with id: ${ id } not found`)
       }
       
-      project.description = project.description.split("\n\n").map(parrafo => `<p>${parrafo}</p>`).join("");
       return project;
     } catch (error) {
       this.handleExceptionsErrors(error)
