@@ -6,6 +6,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './entities/project.entity';
 
+
 @Injectable()
 export class ProjectsService {
 
@@ -45,7 +46,6 @@ export class ProjectsService {
       if( !project){
         throw new BadRequestException( `Project with id: ${ id } not found`)
       }
-      
       return project;
     } catch (error) {
       this.handleExceptionsErrors(error)

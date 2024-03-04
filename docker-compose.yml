@@ -1,43 +1,44 @@
 version: '3'
-services: 
-
-  app: 
-
-    build:
-      context: ./
-      target: ${STAGE}
-      dockerfile: Dockerfile
-
-    volumes:
-      - .:/app/
-      - /app/node_modules
-
-    container_name: backend-portafolio
-
-    ports:
-      - ${PORT}:${PORT}
-
-    environment:
-      APP_VERSION: ${APP_VERSION}
-      STAGE: ${STAGE}
-      MONGO_URI: ${MONGO_URI}
-      PORT: ${PORT}
-      DB_NAME: ${DB_NAME}
-      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
-      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
-      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
-      MAILER_TO: ${MAILER_TO}
-      MAILER_PASSWORD: ${MAILER_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
-
+services:
   db:
-    container_name: backend-portafolio-db
-    image: mongo:5.0.16
-    restart: always
-    ports: 
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME:
-      MONGO_INITDB_ROOT_PASSWORD:
-    volumes:
-      - ./mongo:/data/db 
+      container_name: backend-portafolio-db
+      image: mongo:5.0.16
+      restart: always
+      ports: 
+        - 27017:27017
+      environment:
+        MONGO_INITDB_ROOT_USERNAME:
+        MONGO_INITDB_ROOT_PASSWORD:
+      volumes:
+        - ./mongo:/data/db  
+
+#  app: 
+
+#    build:
+#      context: ./
+#      target: ${STAGE}
+#      dockerfile: Dockerfile
+#
+#    volumes:
+#      - .:/app/
+#      - /app/node_modules
+#
+#    container_name: backend-portafolio
+#
+#    ports:
+#      - ${PORT}:${PORT}
+#
+#    environment:
+#      APP_VERSION: ${APP_VERSION}
+#      STAGE: ${STAGE}
+#      MONGO_URI: ${MONGO_URI}
+#      PORT: ${PORT}
+#      DB_NAME: ${DB_NAME}
+#      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+#      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+#      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+#      MAILER_TO: ${MAILER_TO}
+#      MAILER_PASSWORD: ${MAILER_PASSWORD}
+#      JWT_SECRET: ${JWT_SECRET}
+
+  

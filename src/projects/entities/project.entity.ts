@@ -9,7 +9,7 @@ export class Project extends Document{
   name: string;
 
   @Prop({ required: false })
-  img?: string;
+  img?: string[];
 
   @Prop({ required: true })
   url: string;

@@ -1,4 +1,5 @@
 import { IsArray, IsOptional, IsString, IsUrl, MinLength } from 'class-validator';
+import { TypeProyect } from './typeProject.enum';
 
 export class CreateProjectDto {
 
@@ -6,7 +7,7 @@ export class CreateProjectDto {
   name: string;
   
   @IsOptional()
-  img?: string;
+  img?: string[];
   
   @IsUrl()
   url: string;
@@ -15,7 +16,7 @@ export class CreateProjectDto {
   description: string;
 
   @IsString()
-  type: string;
+  type: TypeProyect;
 
   @IsArray()
   technologies: string[];
