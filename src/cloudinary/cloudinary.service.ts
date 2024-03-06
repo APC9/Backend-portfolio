@@ -25,6 +25,23 @@ export class CloudinaryService {
     return result.secure_url;
   }
 
+  async uploadImages( files: Express.Multer.File[] ){
+    let url: string[] = [];
+
+    try {
+      await Promise.all( files.map( async (file) => {
+          let result = await cloudinary.uploader.upload( file.path, {
+            public_id: `portafolio/${uuid()}`
+          })
+          url.push(result.secure_url);
+        })
+      )
+      return {url};
+    } catch (error) {
+      return error.message;
+    }
+  }
+
   async uploadImagePublication( file: Express.Multer.File ){
     const result = await cloudinary.uploader.upload( file.path, {
       public_id: `publicaciones/${uuid()}`

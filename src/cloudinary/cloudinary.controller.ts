@@ -1,10 +1,10 @@
-import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException, Get, Param, Res, UseGuards} from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException, Get, Param, Res, UseGuards, UploadedFiles} from '@nestjs/common';
 import { CloudinaryService } from './cloudinary.service';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { AuthGuard } from '../guards/auth.guard';
 
-@UseGuards( AuthGuard ) 
+//@UseGuards( AuthGuard ) 
 @Controller('cloudinary')
 export class CloudinaryController {
 
@@ -21,6 +21,20 @@ export class CloudinaryController {
     const url = await this.cloudinaryService.uploadImage(file)
     return url;
   }
+
+  @Post('uploadImages')
+  @UseInterceptors( FilesInterceptor("images"))
+  async uploadImages( @UploadedFiles() files: Express.Multer.File[]) {
+
+    if (files.length === 0) {
+      throw new BadRequestException('Make sure the files are images.')
+    }
+
+    const url = await this.cloudinaryService.uploadImages(files)
+    return url;
+
+  }
+
 
   @Post('publication')
   @UseInterceptors( FileInterceptor("image"))
